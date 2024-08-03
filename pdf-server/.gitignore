@@ -9,6 +9,9 @@ npm-shrinkwrap.json
 .nyc_output
 coverage
 
+# upload files
+uploads
+
 # Benchmarking
 benchmarks/graphs
 
