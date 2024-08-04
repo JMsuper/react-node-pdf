@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { TextField } from '@mui/material';
+import Button from '@mui/material/Button'
 
-const UploadButton = () => {
+
+const UploadButton = ({setFileUrl}) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const apiUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -35,8 +38,15 @@ const UploadButton = () => {
             .then(response => {
                 if(response.ok){
                     alert('[성공]파일 업로드 성공')
+                    return response.text();
                 }else{
                     alert('[실패]파일 업로드 실패')
+                }
+            })
+            .then(fileUrl => {
+                if(fileUrl){
+                    console.log(fileUrl)
+                    setFileUrl(apiUrl + fileUrl)
                 }
             })
             .catch(error => {
@@ -51,8 +61,20 @@ const UploadButton = () => {
 
     return (
         <div>
-            <input type="file" accept='.pdf' onChange={handleFileUpload} />
-            <button onClick={() => uploadFileToServer(selectedFile)}>Upload</button>
+            <TextField
+                type="file"
+                inputProps={{accept:"application/pdf"}}
+                onChange={handleFileUpload}
+                variant="outlined"
+            />
+            <Button
+                onClick={() => uploadFileToServer(selectedFile)}
+                variant="contained"
+                color="primary"
+                style={{ marginTop: '10px' }}
+            >
+                Upload
+            </Button>
         </div>
     );
 };

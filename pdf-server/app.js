@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
+const PdfParser = require('./pdfParser');
 
 const app = express();
 const PORT = 3000;
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
 // 파일 저장 설정
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, 'public/uploads/');
     },
     filename: (req, file, cb) => {
         const currentTime = Date.now();
@@ -57,16 +58,24 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
+app.use(express.static(path.join(__dirname,'public')));
+
 app.get('/', (req, res) => {
     res.send("Connection Test");
 });
+
+// app.get('/pdf-parse',(req, res) => {
+//     const filePath = '/public/uploads/2100113_의사국 의안과_의안원문 (2) (1) (1).pdf';
+//     const result = PdfParser.parse(filePath);
+//     res.send(result);
+// })
 
 app.post('/pdf-file', upload.single('file'), (req, res) => {
     console.log(req.file);
     if(!req.file){
         return res.status(400).send("파일 업로드 실패");
     }
-    res.send(`파일이 성공적으로 업로드되었습니다: ${req.file.filename}`);
+    res.send("/uploads/" + req.file.filename);
 })
 
 app.listen(PORT, () => {
