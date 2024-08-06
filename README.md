@@ -16,7 +16,7 @@
      2. npm install
      3. npm start
 3. "1 ~ 2" 통해 2개의 서버 실행 이후
-   - 브라우저에서 "http://localhost:8080/" 접속
+   - 브라우저에서 "http://localhost:80/" 접속
   
 ### 테스트 과정
 1. 홈 화면 접속
