@@ -10,7 +10,7 @@ npm-shrinkwrap.json
 coverage
 
 # upload files
-uploads
+uploads/*
 
 # Benchmarking
 benchmarks/graphs
