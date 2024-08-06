@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/30096aca-2f67-41ab-a41f-30d7ca8a8af2)# 실행방법 안내
 ### 실행환경
 - nodejs version : v20.11.1
 
