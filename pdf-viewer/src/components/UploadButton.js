@@ -3,13 +3,19 @@ import { TextField } from '@mui/material';
 import Button from '@mui/material/Button'
 
 
-const UploadButton = ({setFileUrl}) => {
+const UploadButton = ({setFilePath,setFileUrl}) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const apiUrl = process.env.REACT_APP_SERVER_URL;
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
-        
+
+        if(file === null || file === undefined){
+            setSelectedFile(null);
+            setFileUrl(null);
+            setFilePath(null);
+        }
+
         if(file && file.type !== 'application/pdf'){
             event.target.value = '';
             alert('파일 업로드는 PDF형식으로 제한됩니다.');
@@ -17,12 +23,10 @@ const UploadButton = ({setFileUrl}) => {
         }else{
             setSelectedFile(file);
         }
-
-        console.log(file);
     };
 
     const uploadFileToServer = (file) => {
-        if(file === null){
+        if(file === null || file === undefined){
             alert("'파일 선택'이후 서버로 업로드가 가능합니다.");
             return;
         }
@@ -45,8 +49,8 @@ const UploadButton = ({setFileUrl}) => {
             })
             .then(fileUrl => {
                 if(fileUrl){
-                    console.log(fileUrl)
                     setFileUrl(apiUrl + fileUrl)
+                    setFilePath(fileUrl);
                 }
             })
             .catch(error => {

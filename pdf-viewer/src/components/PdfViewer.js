@@ -40,7 +40,6 @@ const PdfViewer = ({url,isOpen, onClose}) => {
     }, [pdf, curPage]);
 
     const renderPdf = async (pdf, curPage) => {
-        console.log("renderPdf");
         if (canvasRef.current && !isRender) {
             setIsRender(true);
             const page = await pdf.getPage(curPage);
@@ -68,7 +67,7 @@ const PdfViewer = ({url,isOpen, onClose}) => {
     }
 
     return (
-        <Dialog open={isOpen === true} onClose={onClose} minWidth="lg" maxWidth="xl">
+        <Dialog open={isOpen === true} onClose={onClose} maxWidth="xl">
           <DialogTitle id="pdfViewerDialogTitle">
             PDF Viewer
             <Button

@@ -11,15 +11,6 @@ app.use(cors({
     origin: '*'
 }));
 
-// 테스트 로깅
-app.use((req, res, next) => {
-    const currentTime = new Date().toISOString(); // 현재 시간
-    console.log(`[${currentTime}] ${req.method} ${req.url}`); // 요청 메서드와 URL 출력
-    console.log('Headers:', req.headers); // 요청 헤더 출력
-    console.log('Query:', req.query); // 쿼리 파라미터 출력
-    next(); // 다음 미들웨어로 이동
-})
-
 // 파일 저장 설정
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -64,14 +55,14 @@ app.get('/', (req, res) => {
     res.send("Connection Test");
 });
 
-// app.get('/pdf-parse',(req, res) => {
-//     const filePath = '/public/uploads/2100113_의사국 의안과_의안원문 (2) (1) (1).pdf';
-//     const result = PdfParser.parse(filePath);
-//     res.send(result);
-// })
+app.get('/pdf-parse', async (req, res) => {
+    const {path} = req.query;
+    const filePath = 'public/' + path;
+    const result = await PdfParser.parse(filePath);
+    res.send(result);
+})
 
 app.post('/pdf-file', upload.single('file'), (req, res) => {
-    console.log(req.file);
     if(!req.file){
         return res.status(400).send("파일 업로드 실패");
     }
