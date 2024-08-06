@@ -1,5 +1,7 @@
 ### 실행환경
 - nodejs version : v20.11.1
+- 백엔드 : Express + javascript
+- 프론트 : React + javascript
 
 
 ### 프로젝트 설치 및 서버실행방법
